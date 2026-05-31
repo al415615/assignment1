@@ -23,7 +23,8 @@ The goal of this package is to download, classify, and visualize cycling infrast
 
 You can install the development version of assignment1 from [GitHub](https://github.com/) with:
 
-``` {r}
+``` {r eval=FALSE}
+
 
 devtools::install_github("al415615/assignment1")
 
