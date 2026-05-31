@@ -1,0 +1,58 @@
+---
+output: github_document
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Cycling Infrastructure Analysis (assignment1)
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of this package is to download, classify, and visualize cycling infrastructure data from OpenStreetMap. It builds spatial cycling networks, classifies infrastructure by safety type, computes summary statistics, and produces maps and plots for analysis.
+
+## Installation
+
+You can install the development version of assignment1 from [GitHub](https://github.com/) with:
+
+``` r
+
+devtools::install_github("al415615/assignment1")```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r pressure, echo = FALSE}
+## Example
+
+```{r example}
+library(assignment1)
+
+# Download cycling network
+net <- get_cycling_network("Muenster, Germany")
+
+# Print and plot network
+net
+plot(net)
+
+# Classify infrastructure
+classif <- classify_bike_infrastructure(net)
+
+# Print and plot classification
+classif
+plot_cycling_safety_map(classif)
+```
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+This package was developed as part of a university assignment on spatial data analysis and cycling infrastructure accessibility.
