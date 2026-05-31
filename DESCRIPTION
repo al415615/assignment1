@@ -1,20 +1,22 @@
 Package: assignment1
-Title: What the Package Does (One Line, Title Case)
+Title: Cycling Infrastructure Analysis Using OpenStreetMap Data
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Andrea Belen", "Cretu Toma", email = "al415615@example.com",
+           role = c("aut", "cre"))
+Description: Provides tools to download, classify, and visualize cycling infrastructure data from OpenStreetMap. It builds spatial cycling networks, classifies infrastructure types, computes summary statistics, and generates maps and plots for spatial data analysis using vector-based data cubes.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
-URL: https://github.com/al415615/assignment1
-BugReports: https://github.com/al415615/assignment1/issues
 Imports: 
     dplyr,
     ggplot2,
     ggspatial,
     osmdata,
     patchwork,
-    sf
+    sf,
+    knitr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

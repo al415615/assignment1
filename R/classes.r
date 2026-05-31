@@ -1,5 +1,18 @@
   #| code-fold: true
-  # constructor of a cycling_network instance
+
+  # global variables for ggplot
+  infra_type <- NULL
+  total_length_km <- NULL
+
+  #' Constructor for cycling_network instance
+  #'
+  #' Creates a `cycling_network` instance containing spatial cycling infrastructure
+  #' extracted from OpenStreetMap.
+  #'
+  #' @param city Character string. Name of the city.
+  #' @param sf_lines An sf object with LINESTRING geometries.
+  #'
+  #' @return A `cycling_network` object.
   new_cycling_network <- function(city, sf_lines) {
     
     # validate the length of the city argument (it is not empty)
@@ -24,6 +37,11 @@
   }
 
   # print()
+  #' Print method for cycling_network instance
+  #'
+  #' @param x A `cycling_network` instance
+  #' @param ... Additional arguments (ignored).
+  #'
   #' @export
   print.cycling_network <- function(x, ...) {
     cat("cycling_network object\n")
@@ -35,6 +53,11 @@
   }
 
   # plot()
+  #' Plot method for cycling_network instance
+  #'
+  #' @param x A `cycling_network` instance.
+  #' @param ... Additional arguments (ignored).
+  #'
   #' @export
   plot.cycling_network <- function(x, ...) {
     ggplot2::ggplot() +
@@ -52,7 +75,16 @@
 
 
   #| code-fold: true
-  # constructor of a cycling_classification instance
+
+  #' constructor of a cycling_classification instance
+  #'
+  #' Extends a cycling_network with classification and summary statistics.
+  #'
+  #' @param network A `cycling_network` instance.
+  #' @param classified_lines An sf object with added `infra_type`.
+  #' @param summary_stats A data.frame with infrastructure summary statistics.
+  #'
+  #' @return A `cycling_classification` object.
   new_cycling_classification <- function(network, classified_lines, summary_stats) {
     
     # validate that network is a cycling_network object
@@ -82,6 +114,11 @@
   }
 
   # print()
+  #' Print method for cycling_classification instance
+  #'
+  #' @param x A `cycling_classification` object.
+  #' @param ... Additional arguments (ignored).
+  #'
   #' @export
   print.cycling_classification <- function(x, ...) {
     cat("cycling_classification object\n")
@@ -94,6 +131,13 @@
   }
 
   # plot())
+  #' Plot cycling infrastructure classification map
+  #'
+  #' Visualises cycling infrastructure classified by safety level.
+  #'
+  #' @param x A `cycling_classification` object.
+  #' @param ... Additional arguments (ignored).
+  #'
   #' @export
   plot.cycling_classification <- function(x, ...) {
     

@@ -5,6 +5,24 @@
   # city = character string with the city name, e.g. "Münster, Germany"
   # crs = coordinate reference system to use. Default is 4326 (WGS84)
   #creturn = a cycling_network instance 
+
+  # global variables for ggplot
+  infra_type <- NULL
+  total_length_km <- NULL
+
+  #' Download cycling network from OpenStreetMap
+  #'
+  #' Downloads cycling infrastructure data for a given city using OpenStreetMap
+  #' and returns a `cycling_network` object containing spatial LINESTRING data.
+  #'
+  #' @param city Character string. Name of the city (e.g. "Münster, Germany").
+  #' @param crs Numeric. EPSG coordinate reference system (default: 4326).
+  #' @param bbox_km Numeric. Radius in kilometers for the bounding box.
+  #'
+  #' @return A `cycling_network` object with spatial cycling infrastructure.
+  #'
+  #' @importFrom stats aggregate
+  #' @export
   get_cycling_network <- function(city, crs = 4326, bbox_km = 5) {
     
     # input validation (same as in the constructor)
@@ -119,6 +137,22 @@
 
   # network = cycling_network instance from get_cycling_network()
   # return = cycling_classification instance
+
+  #' Classify cycling infrastructure types
+  #'
+  #' Takes a `cycling_network` object and classifies each road segment into
+  #' infrastructure safety categories, also computing summary statistics.
+  #'
+  #' @param network A `cycling_network` object created by `get_cycling_network()`.
+  #'
+  #' @return A `cycling_classification` object containing:
+  #' \itemize{
+  #'   \item classified spatial lines with `infra_type`
+  #'   \item summary table of total length per infrastructure type
+  #' }
+  #'
+  #' @importFrom stats aggregate
+  #' @export
   classify_bike_infrastructure <- function(network) {
     
     # input validation (same as in the contructor)
@@ -153,7 +187,7 @@
     # st_length() returns length in m for projected CRS
     lines$length_m <- as.numeric(sf::st_length(lines))
     
-    summary_stats <- aggregate(
+    summary_stats <- stats::aggregate(
       length_m ~ infra_type,
       data = lines,
       FUN  = function(x) round(sum(x) / 1000, 2)  # convert m to km
@@ -179,6 +213,21 @@
   # show_stats = If TRUE, prints summary statistics. Default TRUE
   # return = ggplot object that can be printed
 
+  #' Plot cycling infrastructure safety map
+  #'
+  #' Creates a map of cycling infrastructure classified by safety level.
+  #' Optionally includes a bar chart of total infrastructure length by type.
+  #'
+  #' @param classification A `cycling_classification` object.
+  #' @param show_stats Logical. If TRUE, also shows summary statistics plot.
+  #'
+  #' @return A `ggplot` object (map or combined map + bar chart).
+  #'
+  #' @import ggplot2
+  #' @import ggspatial
+  #' @import patchwork
+  #' @importFrom stats reorder
+  #' @export
   plot_cycling_safety_map <- function(classification, show_stats = TRUE) {
     
     # input validation (same as in the contructors)
