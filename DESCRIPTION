@@ -11,3 +11,10 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
 URL: https://github.com/al415615/assignment1
 BugReports: https://github.com/al415615/assignment1/issues
+Imports: 
+    dplyr,
+    ggplot2,
+    ggspatial,
+    osmdata,
+    patchwork,
+    sf
